@@ -2,6 +2,7 @@
 # Simple Recipes App
 
 @version     1.0.0, last modified April 2020
+
 @author      Didi Kusnadi<jalapro08@gmail.com>
 
 ---
@@ -17,7 +18,7 @@
 
 ## How To Use API
 
-Call API by visit url http://simple-recipe.web/lunch or http://simple-recipe.web/<requested-date>
+Call API by visit url http://simple-recipe.web/lunch or http://simple-recipe.web/{requested-date}
 
 Allowed format for `requested-date` param is Y-m-d
 

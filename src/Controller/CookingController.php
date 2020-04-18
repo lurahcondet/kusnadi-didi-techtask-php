@@ -12,6 +12,7 @@ use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\HttpFoundation\Request;
+use DateTime;
 
 class CookingController extends AbstractController
 {
@@ -52,20 +53,19 @@ class CookingController extends AbstractController
 
     /**
      * Display available recipes
-     * 
+     *
      * @Route("/lunch", name="lunch")
      * @Route("/lunch/{date}", name="lunch_slug")
-     * 
+     *
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function index(Request $request)
     {
         $this->initAction($request);
-        $allAttributes = $request->attributes->all();
 
         $recipes = $this->getRecipes();
 
-        if(!$recipes || !count($recipes)){
+        if (!$recipes || !count($recipes)) {
             return $this->json([
                 'status' => false,
                 'message' => 'Sorry recipes not available at the moment. Please check your ingredients expire date.'
@@ -81,10 +81,10 @@ class CookingController extends AbstractController
 
     /**
      * Display all recipes
-     * 
+     *
      * @Route("/recipe", name="recipe")
      * @Route("/recipes", name="recipes")
-     * 
+     *
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function recipe()
@@ -95,10 +95,10 @@ class CookingController extends AbstractController
 
     /**
      * display all ingredients
-     * 
+     *
      * @Route("/ingredient", name="ingredient")
      * @Route("/ingredients", name="ingredients")
-     * 
+     *
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function ingredient()
@@ -112,36 +112,39 @@ class CookingController extends AbstractController
      * read and validate requested date
      * @param  Request $request
      * @return void
+     * @SuppressWarnings(PHPMD.StaticAccess)
      */
-    protected function initAction($request){
+    protected function initAction($request)
+    {
         $slug = $request->attributes->get('_route_params');
 
-        if(!empty($slug)){
+        if (!empty($slug)) {
             $dateObj = \DateTime::createFromFormat("Y-m-d", $slug['date']);
-            if($dateObj !== false && !array_sum($dateObj::getLastErrors())){
+            if ($dateObj !== false && !array_sum($dateObj::getLastErrors())) {
                 $this->today = $dateObj->format("Y-m-d");
                 return;
             }
         }
 
-        $dateObj = new \DateTime();
+        $dateObj = new DateTime();
         $this->today = $dateObj->format("Y-m-d");
     }
 
     /**
      * get available recipes
-     * 
+     *
      * @return array
      */
-    protected function getRecipes(){
+    protected function getRecipes()
+    {
 
         $this->ingredients = $this->getSource(self::INGREDIENTS_SOURCE);
-        if(!$this->ingredients || !count($this->ingredients)){
+        if (!$this->ingredients || !count($this->ingredients)) {
             return;
         }
 
         $this->recipes = $this->getSource(self::RECIPES_SOURCE);
-        if(!$this->recipes || !count($this->recipes) || !isset($this->recipes['recipes'])){
+        if (!$this->recipes || !count($this->recipes) || !isset($this->recipes['recipes'])) {
             return;
         }
 
@@ -151,18 +154,19 @@ class CookingController extends AbstractController
     
     /**
      * get recipes by ingredients
-     * 
+     *
      * grouping and sorting recipes based on grade
-     * 
+     *
      * @return array|void
      */
-    protected function getRecipesByIngredients(){
+    protected function getRecipesByIngredients()
+    {
         $lunchRecipes = [];
-        foreach($this->recipes['recipes'] as $recipe){
+        foreach ($this->recipes['recipes'] as $recipe) {
             $grade = $this->getRecipeGrade($recipe);
 
             //do not cook recipe with expired ingredients
-            if($grade > 2){
+            if ($grade > 2) {
                 continue;
             }
             $recipe['grade'] = $grade;
@@ -170,8 +174,8 @@ class CookingController extends AbstractController
         }
         
         // sort recipes by grade
-        usort($lunchRecipes, function($a, $b) {
-            return $a['grade'] <=> $b['grade'];
+        usort($lunchRecipes, function ($prev, $next) {
+            return $prev['grade'] <=> $next['grade'];
         });
 
         //do not let grade showing
@@ -184,13 +188,14 @@ class CookingController extends AbstractController
 
     /**
      * get recipe grade value
-     * 
+     *
      * @param  array $recipe
      * @return int
      */
-    protected function getRecipeGrade($recipe){
+    protected function getRecipeGrade($recipe)
+    {
         $grade = [];
-        foreach($recipe['ingredients'] as $ingredient){
+        foreach ($recipe['ingredients'] as $ingredient) {
             $grade[] = $this->getIngredientGrade($ingredient);
         }
         return max($grade);
@@ -202,30 +207,31 @@ class CookingController extends AbstractController
      * grade  1: Fresh
      *        2: Less fresh
      *        3: Expired
-     *        
+     *
      * @param  array $ingredient
      * @return int
      */
-    protected function getIngredientGrade($ingredientName){
+    protected function getIngredientGrade($ingredientName)
+    {
         
         //do not check an ingredient multiple time
-        if(!isset($this->grade[$ingredientName])){
+        if (!isset($this->grade[$ingredientName])) {
             $this->grade[$ingredientName] = 1;
 
             $ingredient = $this->getIngredientFromFridge($ingredientName);
 
             //ingredient not available
-            if(!$ingredient){
+            if (!$ingredient) {
                 return $this->grade[$ingredientName] = 3;
             }
 
             //ingredient expired
-            if($this->today > $ingredient['use-by']){
+            if ($this->today > $ingredient['use-by']) {
                 $this->grade[$ingredientName] = 3;
             }
 
             //ingredient still can used
-            if($this->today <= $ingredient['use-by'] && $this->today > $ingredient['best-before']){
+            if ($this->today <= $ingredient['use-by'] && $this->today > $ingredient['best-before']) {
                 $this->grade[$ingredientName] = 2;
             }
         }
@@ -234,13 +240,14 @@ class CookingController extends AbstractController
 
     /**
      * take an ingredient from fridge
-     *             
+     *
      * @param  string $ingredientName
      * @return array|void
      */
-    protected function getIngredientFromFridge($ingredientName){
-        foreach($this->ingredients['ingredients'] as $ingredient){
-            if($ingredient['title'] == $ingredientName){
+    protected function getIngredientFromFridge($ingredientName)
+    {
+        foreach ($this->ingredients['ingredients'] as $ingredient) {
+            if ($ingredient['title'] == $ingredientName) {
                 return $ingredient;
             }
         }
@@ -251,11 +258,12 @@ class CookingController extends AbstractController
      * @param  string $url
      * @return array|void
      */
-    protected function getSource($url){
-        try{
+    protected function getSource($url)
+    {
+        try {
             $jsonString = file_get_contents($url);
             return $this->decodeJson($jsonString);
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             return;
         }
     }
@@ -265,14 +273,14 @@ class CookingController extends AbstractController
      * @param  string $jsonString
      * @return array
      */
-    protected function decodeJson($jsonString){
-        if(!$this->jsonSerializer)
-        {
+    protected function decodeJson($jsonString)
+    {
+        if (!$this->jsonSerializer) {
             $this->jsonSerializer = new Serializer(
-                [new GetSetMethodNormalizer()], 
+                [new GetSetMethodNormalizer()],
                 ['json' => new JsonEncoder()]
             );
         }
-        return $this->jsonSerializer->decode($jsonString, 'json');    
+        return $this->jsonSerializer->decode($jsonString, 'json');
     }
 }
