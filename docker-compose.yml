@@ -10,9 +10,9 @@ services:
     image: symfony:latest
     container_name: recipe
     expose:
-      - 8000
+      - 80
     ports:
-      - 8000:8000
+      - 80:80
     hostname: simple-recipe.web
     volumes:
       - ./:/var/www/html
