@@ -41,7 +41,7 @@ RUN mv deployer.phar /usr/local/bin/dep
 RUN chmod +x /usr/local/bin/dep
 
 # Enable new configuration and mod rewrite
-RUN a2ensite recipe.conf && a2enmod rewrite
+RUN a2ensite simple-recipe.conf && a2enmod rewrite
 
 WORKDIR /var/www/html
 
