@@ -39,11 +39,11 @@ Please make sure your installation complete. Open your browser and enter url htt
 
 Check container if application not running by typing command:
 
-	`docker ps`
+	docker ps
 
 Make sure container `mysite` in the list. If not run container by typing command:
 
-	`docker run -p 8080:80 -d mysite`
+	docker run -p 8080:80 -d mysite
 
 
 ## How To Run Code Inspection
