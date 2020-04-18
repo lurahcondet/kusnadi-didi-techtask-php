@@ -34,6 +34,10 @@ The application build using symfony framework version 5.
 
 	`sh ./install.sh`
 
+3. Add domain simple-recipe.web to your hosts file
+
+	`127.0.0.1	simple-recipe.web`
+	
 
 ## How To Run Application
 

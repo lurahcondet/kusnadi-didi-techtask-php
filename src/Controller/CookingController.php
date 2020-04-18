@@ -73,7 +73,7 @@ class CookingController extends AbstractController
         if (!$recipes || !count($recipes)) {
             return $this->json([
                 'status' => false,
-                'message' => 'Sorry recipes not available at the moment. Please check your ingredients expire date.'
+                'message' => 'Sorry recipes not available at this moment. Please check your ingredients expire date.'
             ]);
         }
 
