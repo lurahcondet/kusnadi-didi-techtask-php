@@ -31,7 +31,7 @@ EXPOSE 80
 COPY . /var/www/site
 
 # Update the default apache site with the config we've created.​
-ADD simple-recipe.conf /etc/apache2/sites-available/simple-recipe.conf
+ADD config/apache/simple-recipe.conf /etc/apache2/sites-available/simple-recipe.conf
 
 # Disable default configuration
 RUN a2dissite 000-default.conf
