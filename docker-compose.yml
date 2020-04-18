@@ -1,0 +1,18 @@
+version: "3.6"
+services:
+  symfony:
+    build: 
+        context: .
+        args:
+          - "BUILD_ARGUMENT_ENV=dev"
+          - "BUILD_ARGUMENT_DEBUG_ENABLED=false"
+        dockerfile: ./Dockerfile
+    image: symfony:latest
+    container_name: recipe
+    expose:
+      - 80
+    ports:
+      - 80:80
+    hostname: recipe.web
+    volumes:
+      - ./:/var/www/html
