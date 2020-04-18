@@ -1,0 +1,20 @@
+
+###> symfony/framework-bundle ###
+/.dockerignore
+/.env
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/config/packages/
+/config/routes/
+/config/bootstrap.php
+/config/bundles.php
+/config/router.yml
+/public/
+/var/
+/bin/
+/vendor/
+/.github
+/src/Kernel.php
+###< symfony/framework-bundle ###
