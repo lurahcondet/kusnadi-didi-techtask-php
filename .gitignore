@@ -15,7 +15,7 @@
 /config/routes/
 /config/bootstrap.php
 /config/bundles.php
-/config/router.yml
+/config/routes.yml
 /public/
 /var/
 /bin/
