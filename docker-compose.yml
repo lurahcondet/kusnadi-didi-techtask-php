@@ -20,4 +20,4 @@ services:
     image: composer:1.9
     command: ["composer", "install"]
     volumes:
-      - /var/www/html/php:/app
+      - ./:/var/www/html

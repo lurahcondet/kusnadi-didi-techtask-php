@@ -28,7 +28,7 @@ ENV LANG en_US.utf8​
 EXPOSE 80
 
 # Share default web root
-VOLUME /var/www/html
+VOLUME /var/www/html/public
 
 # Update the default apache site with the config we've created.​
 COPY config/apache/simple-recipe.conf /etc/apache2/sites-available/simple-recipe.conf
@@ -43,7 +43,7 @@ RUN chmod +x /usr/local/bin/dep
 # Enable new configuration and mod rewrite
 RUN a2ensite simple-recipe.conf && a2enmod rewrite
 
-WORKDIR /var/www/html
+WORKDIR /var/www/html/public
 
 # By default start up apache in the foreground, override with /bin/bash for interative.​
 CMD /usr/sbin/apache2ctl -D FOREGROUND
