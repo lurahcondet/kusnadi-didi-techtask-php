@@ -1,7 +1,7 @@
 
 # Simple Recipes App
 
-Simple web app to display recipes and return as json response based on avaibilty of ingredients
+Simple web app to display recipes and return as json response based on availability of ingredients
 
 @version     1.0.0, last modified April 2020
 
@@ -22,7 +22,7 @@ Simple web app to display recipes and return as json response based on avaibilty
 
 Call API by visit url http://your-domain.com/lunch or http://your-domain.com/{requested-date}
 
-Allowed format for `requested-date` param is Y-m-d
+Allowed format for `requested-date` param is **Y-m-d**. Current date will be used if `requested-date` is empty.
 
 
 ##### Version 1.0
