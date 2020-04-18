@@ -1,7 +1,9 @@
 
 # Simple Recipes App
 
-Simple web app to display recipes and return as json response based on availability of ingredients
+Simple web app to display recipes and return as json response based on availability of ingredients.
+
+The application build using symfony framework version 5.
 
 @version     1.0.0, last modified April 2020
 
@@ -35,7 +37,9 @@ Simple web app to display recipes and return as json response based on availabil
 
 ## How To Run Application
 
-Please make sure your installation complete. Open your browser and enter url http://simple-recipe.web:8080/lunch or http://simple-recipe.web:8080/lunch/{requested-date}. Allowed format for `requested-date` param is **Y-m-d**. Current date will be used if `requested-date` is empty.
+Please make sure your installation complete. Open your browser and enter url http://simple-recipe.web:8080/lunch or http://simple-recipe.web:8080/lunch/{requested-date}. 
+
+Allowed format for `requested-date` param is **Y-m-d**. Current date will be used if `requested-date` is empty.
 
 Check container if application not running by typing command:
 
