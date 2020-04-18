@@ -47,10 +47,3 @@ WORKDIR /var/www/html
 
 # By default start up apache in the foreground, override with /bin/bash for interative.​
 CMD /usr/sbin/apache2ctl -D FOREGROUND
-
-# Run Composer
-RUN curl -sS https://getcomposer.org/installer -o composer-setup.php
-RUN php composer-setup.php --install-dir=/usr/local/bin --filename=composer
-RUN php -r "unlink('composer-setup.php');"
-RUN chmod +x /usr/local/bin/composer
-RUN cd /var/www/html && composer install

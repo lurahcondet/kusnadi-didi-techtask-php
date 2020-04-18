@@ -16,3 +16,8 @@ services:
     hostname: recipe.web
     volumes:
       - ./:/var/www/html
+  composer:
+    image: composer:1.9
+    command: ["composer", "install"]
+    volumes:
+      - /var/www/html/php:/app
