@@ -8,13 +8,13 @@ SHELL ["/bin/bash","-c"]
 RUN ln -fs /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
 RUN apt-get update && apt-get install software-properties-common -y
 RUN add-apt-repository ppa:ondrej/php -y
-RUN apt-get update && apt-get install -y curl git unzip php7.2 apache2 libapache2-mod-php7.2 php7.2-{mysql,json,mbstring,curl,mcrypt,gd,bcmath,intl,soap,xml,xdebug,zip} locales \
+RUN apt-get update && apt-get install -y curl git unzip php7.1 apache2 libapache2-mod-php7.1 php7.1-{mysql,json,mbstring,curl,mcrypt,gd,bcmath,intl,soap,xml,xdebug,zip} locales \
  && rm -rf /var/lib/apt/lists/* \
  ​&& localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8​
 
 # Update the PHP.ini file, enable <? ?> tags and quieten logging.​
-RUN sed -i "s/short_open_tag = Off/short_open_tag = On/" /etc/php/7.2/apache2/php.ini
-RUN sed -i "s/error_reporting = .*$/error_reporting = E_ERROR | E_WARNING | E_PARSE/" /etc/php/7.2/apache2/php.ini
+RUN sed -i "s/short_open_tag = Off/short_open_tag = On/" /etc/php/7.1/apache2/php.ini
+RUN sed -i "s/error_reporting = .*$/error_reporting = E_ERROR | E_WARNING | E_PARSE/" /etc/php/7.1/apache2/php.ini
 
 # Manually set up the apache environment variables​
 ENV APACHE_RUN_USER www-data​
