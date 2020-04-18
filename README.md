@@ -63,6 +63,8 @@ Make sure container `mysite` in the list. If not run container by typing command
 	`vendor/phpmd/phpmd/src/bin/phpmd src/ text codesize,unusedcode,naming,controversial,design`
 
 
+## Change Log
+
 ##### Version 1.0
 
 Initial Release
