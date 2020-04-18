@@ -31,7 +31,7 @@ EXPOSE 80
 VOLUME /var/www/html
 
 # Update the default apache site with the config we've created.​
-COPY config/apache/recipe.conf /etc/apache2/sites-available/recipe.conf
+COPY config/apache/simple-recipe.conf /etc/apache2/sites-available/simple-recipe.conf
 
 # Disable default configuration
 RUN a2dissite 000-default.conf
