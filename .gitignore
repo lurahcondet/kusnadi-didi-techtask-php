@@ -5,6 +5,9 @@
 /.env.local
 /.env.local.php
 /.env.*.local
+/.env.test
+/phpcs.xml.dist
+/phpunit.xml.dist
 /composer.lock
 /symfony.lock
 /config/secrets/prod/prod.decrypt.private.php
@@ -19,4 +22,16 @@
 /vendor/
 /.github
 /src/Kernel.php
+/test/bootstrap.php
 ###< symfony/framework-bundle ###
+
+###> symfony/phpunit-bridge ###
+.phpunit
+.phpunit.result.cache
+/phpunit.xml
+###< symfony/phpunit-bridge ###
+
+###> squizlabs/php_codesniffer ###
+/.phpcs-cache
+/phpcs.xml
+###< squizlabs/php_codesniffer ###

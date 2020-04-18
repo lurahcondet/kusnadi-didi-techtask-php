@@ -15,6 +15,20 @@ Simple web app to display recipes and return as json response based on availabil
 
 	`composer update`
 
+3. Run unit testing
+
+	`php bin/phpunit`
+
+4. Run code sniffer
+
+	`php vendor/squizlabs/php_codesniffer/bin/phpcs --standard=PSR1 src/`
+
+	`php vendor/squizlabs/php_codesniffer/bin/phpcs --standard=PSR2 src/`
+
+4. Run PHP Mess Detector
+
+	`vendor/phpmd/phpmd/src/bin/phpmd src/ text codesize,unusedcode,naming,controversial,design`
+
 3. docker-compose build
 4. docker-compose up -d
 

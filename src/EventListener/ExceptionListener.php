@@ -18,22 +18,21 @@ class ExceptionListener
      */
     public function onKernelException(ExceptionEvent $event)
     {
-    	$exception = $event->getThrowable();
+        $exception = $event->getThrowable();
 
-    	$responseCode = 404;
-    	if($exception instanceof \ErrorException){
-    		$responseCode = 500;
-    	}
+        $responseCode = 404;
+        if ($exception instanceof \ErrorException) {
+            $responseCode = 500;
+        }
 
         $customResponse = new JsonResponse(
-        	[
-        		'status' => false, 
-        		'message' => $exception->getMessage()
-        	], 
-        	$responseCode
+            [
+                'status' => false,
+                'message' => $exception->getMessage()
+            ],
+            $responseCode
         );
         
         $event->setResponse($customResponse);
-
     }
 }

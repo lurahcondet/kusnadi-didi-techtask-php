@@ -19,12 +19,17 @@ class CookingController extends AbstractController
     /**
      * @var string
      */
-    const INGREDIENTS_SOURCE = 'https://raw.githubusercontent.com/loadsmileau/php-tech-task/master/src/App/Ingredient/data.json';
+    const BASE_URL_SOURCE = 'https://raw.githubusercontent.com/loadsmileau/php-tech-task/master/';
+
+    /**
+     * @var string
+     */
+    const INGREDIENTS_SOURCE = 'src/App/Ingredient/data.json';
     
     /**
      * @var string
      */
-    const RECIPES_SOURCE = 'https://raw.githubusercontent.com/loadsmileau/php-tech-task/master/src/App/Recipe/data.json';
+    const RECIPES_SOURCE = 'src/App/Recipe/data.json';
 
     /**
      * @var string
@@ -261,7 +266,7 @@ class CookingController extends AbstractController
     protected function getSource($url)
     {
         try {
-            $jsonString = file_get_contents($url);
+            $jsonString = file_get_contents(self::BASE_URL_SOURCE . $url);
             return $this->decodeJson($jsonString);
         } catch (\Exception $e) {
             return;
